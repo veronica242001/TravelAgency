@@ -2,6 +2,7 @@ package com.java.TravelAgency.entity;
 
 import com.java.TravelAgency.constants.Constants;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Date;
@@ -22,6 +23,7 @@ public class Offer {
     private Long id;
 
     @Column(name = "bookDate")
+    @NotNull(message = Constants.NOT_NULL)
     private Date bookDate;
 
     @ManyToMany

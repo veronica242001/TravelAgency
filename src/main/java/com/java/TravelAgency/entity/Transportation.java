@@ -3,6 +3,7 @@ package com.java.TravelAgency.entity;
 
 import com.java.TravelAgency.constants.Constants;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Date;
@@ -22,6 +23,7 @@ public class Transportation {
     private Long id;
 
     @Column(name = "name")
+    @NotNull(message = Constants.NOT_NULL)
     private String name;
 
     @Column(name = "type")
@@ -40,6 +42,7 @@ public class Transportation {
     private Date timeEnd;
 
     @Column(name = "price")
+    @NotNull(message = Constants.NOT_NULL)
     private Double price;
 
     @ManyToMany

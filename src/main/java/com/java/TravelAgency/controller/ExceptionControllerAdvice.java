@@ -1,8 +1,10 @@
 package com.java.TravelAgency.controller;
 
+import com.java.TravelAgency.constants.Constants;
 import com.java.TravelAgency.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -22,5 +24,12 @@ public class ExceptionControllerAdvice {
     public ResponseEntity<String> handleControllerAlreadyExistsExceptions(Exception exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(exception.getMessage());
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<String> handleInvalidField(MethodArgumentNotValidException exception){
+        String message = Constants.INVALID_FIELDS;
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                .body(message);
     }
 }

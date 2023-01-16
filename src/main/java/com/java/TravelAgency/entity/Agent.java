@@ -2,6 +2,7 @@ package com.java.TravelAgency.entity;
 
 import com.java.TravelAgency.constants.Constants;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
@@ -20,12 +21,15 @@ public class Agent {
     private Long id;
 
     @Column(name = "first_name")
+    @NotNull(message = Constants.NOT_NULL)
     private String firstName;
 
     @Column(name = "last_name")
+    @NotNull(message = Constants.NOT_NULL)
     private String lastName;
 
     @Column(name = "phone")
+    @NotNull(message = Constants.NOT_NULL)
     private String phone;
 
     @Column(name = "salary")

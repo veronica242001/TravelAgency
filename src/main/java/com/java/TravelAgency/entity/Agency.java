@@ -2,7 +2,9 @@ package com.java.TravelAgency.entity;
 
 
 import com.java.TravelAgency.constants.Constants;
+import com.java.TravelAgency.validator.EmailMatcher;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
@@ -20,9 +22,12 @@ public class Agency {
     private Long id;
 
     @Column(name = "name")
+    @NotNull(message = Constants.NOT_NULL)
     private String name;
 
     @Column(name = "email")
+    @NotNull(message = Constants.NOT_NULL)
+    @EmailMatcher()
     private String email;
 
     @Column(name = "address")
