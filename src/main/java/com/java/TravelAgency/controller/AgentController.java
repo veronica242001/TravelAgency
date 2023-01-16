@@ -19,22 +19,28 @@ public class AgentController {
     AgentService agentService;
 
     @GetMapping()
-    public ResponseEntity<List<AgentDto>> getAllAgents(){
+    public ResponseEntity<List<AgentDto>> getAllAgents() {
         return ResponseEntity.ok(agentService.getAllAgents());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AgentDto> getAgentById(@PathVariable Long id){
+    public ResponseEntity<AgentDto> getAgentById(@PathVariable Long id) {
         return ResponseEntity.ok(agentService.getAgentById(id));
     }
 
+    // update agent salary
+    @PatchMapping("/{id}/{percent}/{shouldIncrease}") // only one attribute is changed
+    public ResponseEntity<AgentDto> updateSalary(@PathVariable Double percent, @PathVariable Long id, @PathVariable Boolean shouldIncrease) {
+        return ResponseEntity.ok(agentService.updateSalary(id, shouldIncrease, percent));
+    }
+
     @PostMapping
-    public ResponseEntity<AgentDto> addNewAgent(@Valid @RequestBody Agent agent){
+    public ResponseEntity<AgentDto> addNewAgent(@Valid @RequestBody Agent agent) {
         return ResponseEntity.ok(agentService.addAgent(agent));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteAgent(@PathVariable Long id){
+    public ResponseEntity<String> deleteAgent(@PathVariable Long id) {
         agentService.deleteAgent(id);
         return ResponseEntity.ok(Constants.OBJECT_DELETED);
     }

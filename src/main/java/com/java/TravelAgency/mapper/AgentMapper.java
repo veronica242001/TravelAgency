@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AgentMapper {
-     @Autowired
-     AgencyMapper agencyMapper;
+    @Autowired
+    AgencyMapper agencyMapper;
 
-    public Agent mapToAgent(AgentDto agentDto){
+    public Agent mapToAgent(AgentDto agentDto) {
 
         Agent agent = Agent.builder()
                 .id(agentDto.getId())
@@ -19,13 +19,13 @@ public class AgentMapper {
                 .lastName(agentDto.getLastName())
                 .phone(agentDto.getPhone())
                 .salary(agentDto.getSalary())
-              ///  .agency(agencyMapper.mapToAgency(agentDto.getAgencyDto()))
+                ///  .agency(agencyMapper.mapToAgency(agentDto.getAgencyDto()))
                 .build();
 
         return agent;
     }
 
-    public AgentDto mapToAgentDto( Agent agent){
+    public AgentDto mapToAgentDto(Agent agent) {
 
         AgentDto agentDto = AgentDto.builder()
                 .id(agent.getId())

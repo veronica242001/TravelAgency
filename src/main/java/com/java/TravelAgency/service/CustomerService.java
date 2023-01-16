@@ -26,11 +26,18 @@ public class CustomerService {
     private CustomerMapper customerMapper;
 
 
-    public List<CustomerDto> getAllCustomers(){
+    public List<CustomerDto> getAllCustomers() {
         return customerRepository.findAll()
                 .stream().map(a -> customerMapper.mapToCustomerDto(a))
                 .collect(Collectors.toList());
     }
+
+    public List<CustomerDto> getCustomersBornAfterYear(Long year) {
+        return customerRepository.findCustomersBornAfterYear(year)
+                .stream().map(a -> customerMapper.mapToCustomerDto(a))
+                .collect(Collectors.toList());
+    }
+
     public CustomerDto getCustomerById(Long id) {
         Optional<Customer> customer = customerRepository.findById(id);
         if (customer.isEmpty()) {
@@ -40,11 +47,12 @@ public class CustomerService {
     }
 
     public CustomerDto addCustomer(Customer customer) {
-        if(customerRepository.findCustomerByName(customer.getFirstName(), customer.getLastName()).isPresent()){ // if the name already exists, throw exception
-            throw new CustomerAlreadyExistsException(String.format(Constants.CUSTOMER_EXISTS,customer.getFirstName()+ " "+ customer.getLastName()));
+        if (customerRepository.findCustomerByName(customer.getFirstName(), customer.getLastName()).isPresent()) { // if the name already exists, throw exception
+            throw new CustomerAlreadyExistsException(String.format(Constants.CUSTOMER_EXISTS, customer.getFirstName() + " " + customer.getLastName()));
         }
         return customerMapper.mapToCustomerDto(customerRepository.save(customer));
     }
+
     public boolean deleteCustomer(Long id) {
         Optional<Customer> customer = customerRepository.findById(id);
         if (customer.isEmpty()) {
@@ -53,5 +61,6 @@ public class CustomerService {
         customerRepository.delete(customer.get());
         return true;
     }
+
 
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AgencyMapper {
 
-    public Agency mapToAgency(AgencyDto agencyDto){
+    public Agency mapToAgency(AgencyDto agencyDto) {
 
         Agency agency = Agency.builder()
                 .id(agencyDto.getId())
@@ -19,7 +19,7 @@ public class AgencyMapper {
         return agency;
     }
 
-    public AgencyDto mapToAgencyDto( Agency agency){
+    public AgencyDto mapToAgencyDto(Agency agency) {
 
         AgencyDto agencyDto = AgencyDto.builder()
                 .id(agency.getId())

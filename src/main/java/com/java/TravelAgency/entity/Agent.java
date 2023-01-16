@@ -16,7 +16,7 @@ public class Agent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "first_name")
@@ -32,13 +32,12 @@ public class Agent {
     private Double salary;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(name="agents_agencies",
-            joinColumns = { @JoinColumn(name="agencies", referencedColumnName = "id")
+    @JoinTable(name = "agents_agencies",
+            joinColumns = {@JoinColumn(name = "agencies", referencedColumnName = "id")
             }, inverseJoinColumns = {
             @JoinColumn(name = "agents", referencedColumnName = "id")
     })
     private Agency agency;
-
 
 
 }

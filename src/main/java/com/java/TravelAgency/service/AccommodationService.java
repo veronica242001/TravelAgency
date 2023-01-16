@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class AccommodationService implements BaseService{
+public class AccommodationService implements BaseService {
 
     @Autowired
     AccommodationRepository accommodationRepository;
@@ -25,11 +25,18 @@ public class AccommodationService implements BaseService{
     private AccommodationMapper accommodationMapper;
 
 
-    public List<AccommodationDto> getAll(){
+    public List<AccommodationDto> getAll() {
         return accommodationRepository.findAll()
                 .stream().map(a -> accommodationMapper.mapToaccommodationDto(a))
                 .collect(Collectors.toList());
     }
+
+    public List<AccommodationDto> getAccommodationsWithLongestPeriod() {
+        return accommodationRepository.getAccommodationsWithLongestPeriod()
+                .stream().map(a -> accommodationMapper.mapToaccommodationDto(a))
+                .collect(Collectors.toList());
+    }
+
     public AccommodationDto getAccommodationById(Long id) {
         Optional<Accommodation> accommodation = accommodationRepository.findById(id);
         if (accommodation.isEmpty()) {
@@ -39,11 +46,12 @@ public class AccommodationService implements BaseService{
     }
 
     public AccommodationDto addAccommodation(Accommodation accommodation) {
-        if(accommodationRepository.findByName(accommodation.getName()).isPresent()){ // if the name already exists, throw exception
-            throw new AccommodationAlreadyExistsException(String.format(Constants.ACCOMMODATION_EXISTS,accommodation.getName()));
+        if (accommodationRepository.findByName(accommodation.getName()).isPresent()) { // if the name already exists, throw exception
+            throw new AccommodationAlreadyExistsException(String.format(Constants.ACCOMMODATION_EXISTS, accommodation.getName()));
         }
         return accommodationMapper.mapToaccommodationDto(accommodationRepository.save(accommodation));
     }
+
     public boolean deleteObject(Long id) {
         Optional<Accommodation> accommodation = accommodationRepository.findById(id);
         if (accommodation.isEmpty()) {

@@ -20,7 +20,7 @@ public class OfferMapper {
     @Autowired
     CustomerMapper customerMapper;
 
-    public Offer mapToOffer(OfferDto offerDto){
+    public Offer mapToOffer(OfferDto offerDto) {
 
         Offer offer = Offer.builder()
                 .id(offerDto.getId())
@@ -34,7 +34,7 @@ public class OfferMapper {
         return offer;
     }
 
-    public OfferDto mapToOfferDto( Offer offer){
+    public OfferDto mapToOfferDto(Offer offer) {
 
         OfferDto offerDto = OfferDto.builder()
                 .id(offer.getId())

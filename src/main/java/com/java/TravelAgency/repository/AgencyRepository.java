@@ -8,10 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface AgencyRepository  extends JpaRepository<Agency, Long> {
+public interface AgencyRepository extends JpaRepository<Agency, Long> {
 
     Optional<Agency> findByName(String name);
-
 
 
 }

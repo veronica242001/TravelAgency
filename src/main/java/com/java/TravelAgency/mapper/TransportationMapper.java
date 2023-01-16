@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TransportationMapper {
-    public Transportation mapTotransportation(TransportationDto transportationDto){
+    public Transportation mapTotransportation(TransportationDto transportationDto) {
 
         Transportation transportation = Transportation.builder()
                 .id(transportationDto.getId())
@@ -23,7 +23,7 @@ public class TransportationMapper {
         return transportation;
     }
 
-    public TransportationDto mapToTransportationDto( Transportation transportation){
+    public TransportationDto mapToTransportationDto(Transportation transportation) {
 
         TransportationDto transportationDto = TransportationDto.builder()
                 .id(transportation.getId())

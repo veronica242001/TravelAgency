@@ -8,22 +8,22 @@ import org.springframework.stereotype.Component;
 public class CustomerMapper {
 
 
-    public Customer mapToCustomer( CustomerDto customerDto){
+    public Customer mapToCustomer(CustomerDto customerDto) {
 
         Customer customer = Customer.builder()
-                            .id(customerDto.getId())
-                            .firstName(customerDto.getFirstName())
-                            .lastName(customerDto.getLastName())
-                            .email(customerDto.getEmail())
-                            .address(customerDto.getAddress())
-                            .gender(customerDto.getGender())
-                            .birthDate(customerDto.getBirthDate())
-                            .build();
+                .id(customerDto.getId())
+                .firstName(customerDto.getFirstName())
+                .lastName(customerDto.getLastName())
+                .email(customerDto.getEmail())
+                .address(customerDto.getAddress())
+                .gender(customerDto.getGender())
+                .birthDate(customerDto.getBirthDate())
+                .build();
 
         return customer;
     }
 
-    public CustomerDto mapToCustomerDto( Customer customer){
+    public CustomerDto mapToCustomerDto(Customer customer) {
 
         CustomerDto customerDto = CustomerDto.builder()
                 .id(customer.getId())

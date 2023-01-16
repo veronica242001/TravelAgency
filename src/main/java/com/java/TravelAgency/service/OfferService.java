@@ -23,11 +23,12 @@ public class OfferService {
     private OfferMapper offerMapper;
 
 
-    public List<OfferDto> getAllOffers(){
+    public List<OfferDto> getAllOffers() {
         return offerRepository.findAll()
                 .stream().map(a -> offerMapper.mapToOfferDto(a))
                 .collect(Collectors.toList());
     }
+
     public OfferDto getOfferById(Long id) {
         Optional<Offer> offer = offerRepository.findById(id);
         if (offer.isEmpty()) {
@@ -40,6 +41,15 @@ public class OfferService {
 
         return offerMapper.mapToOfferDto(offerRepository.save(offer));
     }
+
+    public OfferDto updateOffer(Offer updatedOffer) {
+        Optional<Offer> offer = offerRepository.findById(updatedOffer.getId());
+        if (offer.isEmpty()) {
+            throw new OfferNotFoundException(String.format(Constants.OFFER_NOT_FOUND, updatedOffer.getId()));
+        }
+        return offerMapper.mapToOfferDto(offerRepository.save(updatedOffer));
+    }
+
     public boolean deleteOffer(Long id) {
         Optional<Offer> offer = offerRepository.findById(id);
         if (offer.isEmpty()) {

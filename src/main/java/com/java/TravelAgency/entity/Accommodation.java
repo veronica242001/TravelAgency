@@ -38,13 +38,13 @@ public class Accommodation {
     @Column(name = "timeEnd")
     private Date timeEnd;
 
-    @Column (name = "price")
+    @Column(name = "price")
     private Double price;
 
     @ManyToMany
     @JoinTable(
             name = "offers_accommodations",
-            joinColumns = { @JoinColumn(name="offers", referencedColumnName = "id")
+            joinColumns = {@JoinColumn(name = "offers", referencedColumnName = "id")
             }, inverseJoinColumns = {
             @JoinColumn(name = "accommodations", referencedColumnName = "id")
     })

@@ -20,22 +20,28 @@ public class AgencyController {
     AgencyService agencyService;
 
     @GetMapping()
-    public ResponseEntity<List<AgencyDto>> getAllAgencies(){
+    public ResponseEntity<List<AgencyDto>> getAllAgencies() {
         return ResponseEntity.ok(agencyService.getAllAgencies());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AgencyDto> getAgencyById(@PathVariable Long id){
+    public ResponseEntity<AgencyDto> getAgencyById(@PathVariable Long id) {
         return ResponseEntity.ok(agencyService.getAgencyById(id));
     }
 
     @PostMapping
-    public ResponseEntity<AgencyDto> addNewAgency(@Valid @RequestBody Agency agency){
+    public ResponseEntity<AgencyDto> addNewAgency(@Valid @RequestBody Agency agency) {
         return ResponseEntity.ok(agencyService.addAgency(agency));
     }
 
+    //update the name for an agency
+    @PatchMapping("/{id}/{name}")
+    public ResponseEntity<AgencyDto> updateUsername(@PathVariable Long id, @PathVariable String name) {
+        return ResponseEntity.ok(agencyService.updateName(id, name));
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteAgency(@PathVariable Long id){
+    public ResponseEntity<String> deleteAgency(@PathVariable Long id) {
         agencyService.deleteAgency(id);
         return ResponseEntity.ok(Constants.OBJECT_DELETED);
     }

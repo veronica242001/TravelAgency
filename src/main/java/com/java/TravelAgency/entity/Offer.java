@@ -27,7 +27,7 @@ public class Offer {
     @ManyToMany
     @JoinTable(
             name = "offers_transportations",
-            joinColumns = { @JoinColumn(name="transportations", referencedColumnName = "id")
+            joinColumns = {@JoinColumn(name = "transportations", referencedColumnName = "id")
             }, inverseJoinColumns = {
             @JoinColumn(name = "offers", referencedColumnName = "id")
     })
@@ -36,23 +36,23 @@ public class Offer {
     @ManyToMany
     @JoinTable(
             name = "offers_accommodations",
-            joinColumns = { @JoinColumn(name="accommodations", referencedColumnName = "id")
+            joinColumns = {@JoinColumn(name = "accommodations", referencedColumnName = "id")
             }, inverseJoinColumns = {
             @JoinColumn(name = "offers", referencedColumnName = "id")
     })
     private List<Accommodation> accommodations;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(name="customers_offers",
-            joinColumns = { @JoinColumn(name="customers", referencedColumnName = "id")
+    @JoinTable(name = "customers_offers",
+            joinColumns = {@JoinColumn(name = "customers", referencedColumnName = "id")
             }, inverseJoinColumns = {
             @JoinColumn(name = "offers", referencedColumnName = "id")
     })
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(name="agents_offers",
-            joinColumns = { @JoinColumn(name="agents", referencedColumnName = "id")
+    @JoinTable(name = "agents_offers",
+            joinColumns = {@JoinColumn(name = "agents", referencedColumnName = "id")
             }, inverseJoinColumns = {
             @JoinColumn(name = "offers", referencedColumnName = "id")
     })

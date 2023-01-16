@@ -1,7 +1,6 @@
 package com.java.TravelAgency.repository;
 
 
-import com.java.TravelAgency.entity.Agency;
 import com.java.TravelAgency.entity.Agent;
 import jdk.jfr.Registered;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,8 +1,11 @@
 package com.java.TravelAgency.service;
 
 
+import com.java.TravelAgency.dto.AgencyDto;
 import com.java.TravelAgency.dto.AgentDto;
+import com.java.TravelAgency.entity.Agency;
 import com.java.TravelAgency.entity.Agent;
+import com.java.TravelAgency.exception.AgencyNotFoundException;
 import com.java.TravelAgency.exception.AgentAlreadyExistsException;
 import com.java.TravelAgency.exception.AgentNotFoundException;
 import com.java.TravelAgency.mapper.AgentMapper;
@@ -26,11 +29,12 @@ public class AgentService {
     private AgentMapper agentMapper;
 
 
-    public List<AgentDto> getAllAgents(){
+    public List<AgentDto> getAllAgents() {
         return agentRepository.findAll()
                 .stream().map(a -> agentMapper.mapToAgentDto(a))
                 .collect(Collectors.toList());
     }
+
     public AgentDto getAgentById(Long id) {
         Optional<Agent> agent = agentRepository.findById(id);
         if (agent.isEmpty()) {
@@ -40,11 +44,28 @@ public class AgentService {
     }
 
     public AgentDto addAgent(Agent agent) {
-        if(agentRepository.findAgentByName(agent.getFirstName(), agent.getLastName()).isPresent()){ // if the name already exists, throw exception
-            throw new AgentAlreadyExistsException(String.format(Constants.AGENT_EXISTS,agent.getFirstName()+" "+agent.getLastName()));
+        if (agentRepository.findAgentByName(agent.getFirstName(), agent.getLastName()).isPresent()) { // if the name already exists, throw exception
+            throw new AgentAlreadyExistsException(String.format(Constants.AGENT_EXISTS, agent.getFirstName() + " " + agent.getLastName()));
         }
         return agentMapper.mapToAgentDto(agentRepository.save(agent));
     }
+
+    public AgentDto updateSalary(Long id, Boolean shouldIncrease, Double percent) {
+        Optional<Agent> agent = agentRepository.findById(id);
+        if (agent.isEmpty()) {
+            throw new AgencyNotFoundException(String.format(Constants.AGENT_NOT_FOUND, id));
+        }
+
+        Double newSalary;
+        if (shouldIncrease) {
+            newSalary = (1 + percent) * agent.get().getSalary();
+        } else {
+            newSalary = (1 - percent) * agent.get().getSalary();
+        }
+        agent.get().setSalary(newSalary);
+        return agentMapper.mapToAgentDto(agentRepository.save(agent.get()));
+    }
+
     public boolean deleteAgent(Long id) {
         Optional<Agent> agent = agentRepository.findById(id);
         if (agent.isEmpty()) {

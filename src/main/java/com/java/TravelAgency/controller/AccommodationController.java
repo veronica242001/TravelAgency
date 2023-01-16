@@ -19,22 +19,28 @@ public class AccommodationController {
     AccommodationService accommodationService;
 
     @GetMapping()
-    public ResponseEntity<List<AccommodationDto>> getAllaccommodations(){
+    public ResponseEntity<List<AccommodationDto>> getAllAccommodations() {
         return ResponseEntity.ok(accommodationService.getAll());
     }
 
+    //get accomodation with the longest
+    @GetMapping("/longestPeriod")
+    public ResponseEntity<List<AccommodationDto>> getAccommodationsWithLongestPeriod() {
+        return ResponseEntity.ok(accommodationService.getAccommodationsWithLongestPeriod());
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<AccommodationDto> getaccommodationById(@PathVariable Long id){
+    public ResponseEntity<AccommodationDto> getAccommodationById(@PathVariable Long id) {
         return ResponseEntity.ok(accommodationService.getAccommodationById(id));
     }
 
     @PostMapping
-    public ResponseEntity<AccommodationDto> addNewaccommodation(@Valid @RequestBody Accommodation accommodation){
+    public ResponseEntity<AccommodationDto> addNewAccommodation(@Valid @RequestBody Accommodation accommodation) {
         return ResponseEntity.ok(accommodationService.addAccommodation(accommodation));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteaccommodation(@PathVariable Long id){
+    public ResponseEntity<String> deleteAccommodation(@PathVariable Long id) {
         accommodationService.deleteObject(id);
         return ResponseEntity.ok(Constants.OBJECT_DELETED);
     }

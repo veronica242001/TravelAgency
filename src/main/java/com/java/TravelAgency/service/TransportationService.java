@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class TransportationService implements BaseService{
+public class TransportationService implements BaseService {
 
     @Autowired
     TransportationRepository transportationRepository;
@@ -25,11 +25,12 @@ public class TransportationService implements BaseService{
     private TransportationMapper transportationMapper;
 
 
-    public List<TransportationDto> getAllTransportations(){
+    public List<TransportationDto> getAllTransportations() {
         return transportationRepository.findAll()
                 .stream().map(a -> transportationMapper.mapToTransportationDto(a))
                 .collect(Collectors.toList());
     }
+
     public TransportationDto getTransportationById(Long id) {
         Optional<Transportation> transportation = transportationRepository.findById(id);
         if (transportation.isEmpty()) {
@@ -39,12 +40,13 @@ public class TransportationService implements BaseService{
     }
 
     public TransportationDto addTransportation(Transportation transportation) {
-        Optional<Transportation> transp= transportationRepository.findByName(transportation.getName());
-        if(transp.isPresent()){ // if the already exists, throw exception
-            throw new TransportationAlreadyExistsException(String.format(Constants.TRANSPORTATION_EXISTS,transportation.getName()));
+        Optional<Transportation> transp = transportationRepository.findByName(transportation.getName());
+        if (transp.isPresent()) { // if the already exists, throw exception
+            throw new TransportationAlreadyExistsException(String.format(Constants.TRANSPORTATION_EXISTS, transportation.getName()));
         }
         return transportationMapper.mapToTransportationDto(transportationRepository.save(transportation));
     }
+
     public boolean deleteObject(Long id) {
         Optional<Transportation> transportation = transportationRepository.findById(id);
         if (transportation.isEmpty()) {
@@ -52,5 +54,15 @@ public class TransportationService implements BaseService{
         }
         transportationRepository.delete(transportation.get());
         return true;
+    }
+
+    public TransportationDto updatePrice(String name, String addressFrom, Double percent) {
+        Optional<Transportation> transportation = transportationRepository.findByNameAndAddressfrom(name, addressFrom);
+        if (transportation.isEmpty()) {
+            throw new TransportationNotFoundException(String.format(Constants.TRANSPORTATION_NOT_FOUND, name));
+        }
+        Double newPrice = (1 + percent) * transportation.get().getPrice();
+        transportation.get().setPrice(newPrice);
+        return transportationMapper.mapToTransportationDto(transportationRepository.save(transportation.get()));
     }
 }

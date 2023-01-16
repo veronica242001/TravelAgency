@@ -24,11 +24,12 @@ public class AgencyService {
     private AgencyMapper agencyMapper;
 
 
-    public List<AgencyDto> getAllAgencies(){
+    public List<AgencyDto> getAllAgencies() {
         return agencyRepository.findAll()
                 .stream().map(a -> agencyMapper.mapToAgencyDto(a))
                 .collect(Collectors.toList());
     }
+
     public AgencyDto getAgencyById(Long id) {
         Optional<Agency> agency = agencyRepository.findById(id);
         if (agency.isEmpty()) {
@@ -38,11 +39,21 @@ public class AgencyService {
     }
 
     public AgencyDto addAgency(Agency agency) {
-        if(agencyRepository.findByName(agency.getName()).isPresent()){ // if the name already exists, throw exception
-            throw new AgencyAlreadyExistsException(String.format(Constants.AGENCY_EXISTS,agency.getName()));
+        if (agencyRepository.findByName(agency.getName()).isPresent()) { // if the name already exists, throw exception
+            throw new AgencyAlreadyExistsException(String.format(Constants.AGENCY_EXISTS, agency.getName()));
         }
         return agencyMapper.mapToAgencyDto(agencyRepository.save(agency));
     }
+
+    public AgencyDto updateName(Long id, String name) {
+        Optional<Agency> agency = agencyRepository.findById(id);
+        if (agency.isEmpty()) {
+            throw new AgencyNotFoundException(String.format(Constants.AGENCY_NOT_FOUND, id));
+        }
+        agency.get().setName(name);
+        return agencyMapper.mapToAgencyDto(agencyRepository.save(agency.get()));
+    }
+
     public boolean deleteAgency(Long id) {
         Optional<Agency> agency = agencyRepository.findById(id);
         if (agency.isEmpty()) {
