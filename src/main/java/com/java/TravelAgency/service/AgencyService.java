@@ -7,7 +7,7 @@ import com.java.TravelAgency.exception.AgencyAlreadyExistsException;
 import com.java.TravelAgency.exception.AgencyNotFoundException;
 import com.java.TravelAgency.mapper.AgencyMapper;
 import com.java.TravelAgency.repository.AgencyRepository;
-import constants.Constants;
+import com.java.TravelAgency.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

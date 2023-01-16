@@ -8,7 +8,7 @@ import com.java.TravelAgency.mapper.CustomerMapper;
 import com.java.TravelAgency.entity.Customer;
 
 import com.java.TravelAgency.repository.CustomerRepository;
-import constants.Constants;
+import com.java.TravelAgency.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

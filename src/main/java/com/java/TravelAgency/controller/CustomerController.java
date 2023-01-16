@@ -3,7 +3,7 @@ package com.java.TravelAgency.controller;
 import com.java.TravelAgency.dto.CustomerDto;
 import com.java.TravelAgency.entity.Customer;
 import com.java.TravelAgency.service.CustomerService;
-import constants.Constants;
+import com.java.TravelAgency.constants.Constants;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

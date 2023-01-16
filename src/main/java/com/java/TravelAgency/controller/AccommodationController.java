@@ -4,7 +4,7 @@ package com.java.TravelAgency.controller;
 import com.java.TravelAgency.dto.AccommodationDto;
 import com.java.TravelAgency.entity.Accommodation;
 import com.java.TravelAgency.service.AccommodationService;
-import constants.Constants;
+import com.java.TravelAgency.constants.Constants;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

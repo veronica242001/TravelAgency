@@ -1,4 +1,4 @@
-package constants;
+package com.java.TravelAgency.constants;
 
 public class Constants {
 

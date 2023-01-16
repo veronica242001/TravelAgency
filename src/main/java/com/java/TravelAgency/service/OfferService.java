@@ -6,7 +6,7 @@ import com.java.TravelAgency.entity.Offer;
 import com.java.TravelAgency.exception.OfferNotFoundException;
 import com.java.TravelAgency.mapper.OfferMapper;
 import com.java.TravelAgency.repository.OfferRepository;
-import constants.Constants;
+import com.java.TravelAgency.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

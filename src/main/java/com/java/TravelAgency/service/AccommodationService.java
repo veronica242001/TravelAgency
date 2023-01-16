@@ -6,7 +6,7 @@ import com.java.TravelAgency.exception.AccommodationAlreadyExistsException;
 import com.java.TravelAgency.exception.AccommodationNotFoundException;
 import com.java.TravelAgency.mapper.AccommodationMapper;
 import com.java.TravelAgency.repository.AccommodationRepository;
-import constants.Constants;
+import com.java.TravelAgency.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

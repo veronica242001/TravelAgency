@@ -1,16 +1,14 @@
 package com.java.TravelAgency.service;
 
 
-import com.java.TravelAgency.dto.AgencyDto;
 import com.java.TravelAgency.dto.AgentDto;
-import com.java.TravelAgency.entity.Agency;
 import com.java.TravelAgency.entity.Agent;
 import com.java.TravelAgency.exception.AgencyNotFoundException;
 import com.java.TravelAgency.exception.AgentAlreadyExistsException;
 import com.java.TravelAgency.exception.AgentNotFoundException;
 import com.java.TravelAgency.mapper.AgentMapper;
 import com.java.TravelAgency.repository.AgentRepository;
-import constants.Constants;
+import com.java.TravelAgency.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

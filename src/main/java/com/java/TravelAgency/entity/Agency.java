@@ -1,7 +1,7 @@
 package com.java.TravelAgency.entity;
 
 
-import constants.Constants;
+import com.java.TravelAgency.constants.Constants;
 import jakarta.persistence.*;
 import lombok.*;
 
