@@ -1,5 +1,5 @@
 # TravelAgency
-Travel Agency
+:sun_with_face:  Travel Agency
 This application is designed to manage the activity inside a travel agency. Using this application, travel agencies can  information
 Business requirements
 1.	There are several tourism agencies in the database.
@@ -16,175 +16,173 @@ Business requirements
  
 The functionality of the application is demonstrated using Postman. I created a Postman collection of API for each endpoint. This collection is exported as JSON.
 
-Swagger Documentation can be found at the following address http://localhost:8095/swagger-ui/index.html#/
+:sun_with_face:  Swagger Documentation can be found at the following address http://localhost:8095/swagger-ui/index.html#/
 
-Endpoints:
+:sun_with_face:  Endpoints:
 
-AgencyEndpoints:
+ :sun_with_face: AgencyEndpoints:
 
 
-GET: Display All Agencies
+:sun_with_face: GET: Display All Agencies
 
 -path: "/agencies"
 
 -pathParameters: None
 
 
-GET: Display Agency By Id
+:sun_with_face: GET: Display Agency By Id
 
 -path: "/agencies/{id}"
 
 -pathParameters: Long id
 
 
-POST: Add New Agency
+:sun_with_face: POST: Add New Agency
 
 -path: "/agencies"
 
 -requestBody: Agency agency
 
 
-PATCH: Update Agency Name
+:sun_with_face: PATCH: Update Agency Name
 
 -path: "/agencies/{id}/{name}"
 
 --pathParameters: Long id, String Name
 
 
-DELETE: Delete Agency By Id
+:sun_with_face: DELETE: Delete Agency By Id
 
 -path: "/agencies/{id}"
 
 -pathParameters: Long id
 
 
-AgentEndpoints:
+:sun_with_face: AgentEndpoints:
 
-GET: Display All Agents
+:sun_with_face: GET: Display All Agents
 
 -path: "/agents"
 
 -pathParameters: None
 
 
-GET: Display Agent By Id
+:sun_with_face: GET: Display Agent By Id
 
 -path: "/agents/{id}"
 
 -pathParameters: Long id
 
 
-POST: Add New Agency
+:sun_with_face: POST: Add New Agency
 
 -path: "/agents"
 
 -requestBody: Agent agent
 
 
-PATCH: Update Salary
+:sun_with_face: PATCH: Update Salary
 
 -path: "/agents/{id}/{percent}/{shouldIncrease}"
 
 --pathParameters: Long id, Double percent, Boolean shouldIncrease
 
 
-DELETE: Delete Agent By Id
+:sun_with_face: DELETE: Delete Agent By Id
 
 -path: "/agents/{id}"
 
 -pathParameters: Long id
 
 
-CustomerEndpoints:
+:sun_with_face: CustomerEndpoints:
 
-GET: Display All Customers
+:sun_with_face: GET: Display All Customers
 
 -path: "/customers"
 
 -pathParameters: None
 
-
-GET: Display Customer By Id
+:sun_with_face: GET: Display Customer By Id
 
 -path: "customers/{id}"
 
 -pathParameters: Long id
 
 
-GET: Display Customers Born After a specific Year
+:sun_with_face: GET: Display Customers Born After a specific Year
 
 -path: "customers/year/{year}"
 
 -pathParameters: Long Year
 
 
-POST: Add New Customer
+:sun_with_face: POST: Add New Customer
 
 -path: "/customers"
 
 -requestBody: Customer Customer
 
 
-DELETE: Delete CustomerBy Id
+:sun_with_face: DELETE: Delete CustomerBy Id
 
 -path: "/customers/{id}"
 
 -pathParameters: Long id
 
 
-TransportationEndpoints:
+:sun_with_face: TransportationEndpoints:
 
-GET: Display All Transportations
+:sun_with_face: GET: Display All Transportations
 
 -path: "/transportations"
 
 -pathParameters: None
 
 
-GET: Display Transportation By Id
+:sun_with_face: GET: Display Transportation By Id
 
 -path: "/transportations/{id}"
 
 -pathParameters: Long id
 
 
-POST: Add New Transportation
+:sun_with_face: POST: Add New Transportation
 
 -path: "/transportations"
 
 -requestBody: Transportation transportation
 
 
-DELETE: Delete Transportation By Id
+:sun_with_face: DELETE: Delete Transportation By Id
 
 -path: "/transportations/{id}"
 
 -pathParameters: Long id
 
 
-AccommodationEndpoints:
+:sun_with_face: AccommodationEndpoints:
 
-GET: Display All Accommodations
+:sun_with_face: GET: Display All Accommodations
 
 -path: "/accommodations"
 
 -pathParameters: None
 
-GET: Display Accommodation By Id
+:sun_with_face: GET: Display Accommodation By Id
 
 -path: "/accommodations/{id}"
 
 -pathParameters: Long id
 
 
-POST: Add New Accommodation
-
+:sun_with_face:  POST: Add New Accommodation
 -path: "/accommodations"
 
 -requestBody: Accommodation accommodation
 
 
-DELETE: Delete Accommodation By Id
+:sun_with_face: DELETE: Delete Accommodation By Id
 
 -path: "/accommodations/{id}"
 
