@@ -51,7 +51,7 @@ public class AgentService {
     public AgentDto updateSalary(Long id, Boolean shouldIncrease, Double percent) {
         Optional<Agent> agent = agentRepository.findById(id);
         if (agent.isEmpty()) {
-            throw new AgencyNotFoundException(String.format(Constants.AGENT_NOT_FOUND, id));
+            throw new AgentNotFoundException(String.format(Constants.AGENT_NOT_FOUND, id));
         }
 
         Double newSalary;
