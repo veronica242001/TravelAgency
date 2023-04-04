@@ -1,5 +1,5 @@
 # TravelAgency
-Travel Agency
+:sun_with_face:  Travel Agency
 This application is designed to manage the activity inside a travel agency. Using this application, travel agencies can  information
 Business requirements
 1.	There are several tourism agencies in the database.
@@ -16,4 +16,174 @@ Business requirements
  
 The functionality of the application is demonstrated using Postman. I created a Postman collection of API for each endpoint. This collection is exported as JSON.
 
-Swagger Documentation can be found at the following address http://localhost:8095/swagger-ui/index.html#/
+:sun_with_face:  Swagger Documentation can be found at the following address http://localhost:8095/swagger-ui/index.html#/
+
+:sun_with_face:  Endpoints:
+
+ :sun_with_face: AgencyEndpoints:
+
+
+:sun_with_face: GET: Display All Agencies
+
+-path: "/agencies"
+
+-pathParameters: None
+
+
+:sun_with_face: GET: Display Agency By Id
+
+-path: "/agencies/{id}"
+
+-pathParameters: Long id
+
+
+:sun_with_face: POST: Add New Agency
+
+-path: "/agencies"
+
+-requestBody: Agency agency
+
+
+:sun_with_face: PATCH: Update Agency Name
+
+-path: "/agencies/{id}/{name}"
+
+--pathParameters: Long id, String Name
+
+
+:sun_with_face: DELETE: Delete Agency By Id
+
+-path: "/agencies/{id}"
+
+-pathParameters: Long id
+
+
+:sun_with_face: AgentEndpoints:
+
+:sun_with_face: GET: Display All Agents
+
+-path: "/agents"
+
+-pathParameters: None
+
+
+:sun_with_face: GET: Display Agent By Id
+
+-path: "/agents/{id}"
+
+-pathParameters: Long id
+
+
+:sun_with_face: POST: Add New Agency
+
+-path: "/agents"
+
+-requestBody: Agent agent
+
+
+:sun_with_face: PATCH: Update Salary
+
+-path: "/agents/{id}/{percent}/{shouldIncrease}"
+
+--pathParameters: Long id, Double percent, Boolean shouldIncrease
+
+
+:sun_with_face: DELETE: Delete Agent By Id
+
+-path: "/agents/{id}"
+
+-pathParameters: Long id
+
+
+:sun_with_face: CustomerEndpoints:
+
+:sun_with_face: GET: Display All Customers
+
+-path: "/customers"
+
+-pathParameters: None
+
+:sun_with_face: GET: Display Customer By Id
+
+-path: "customers/{id}"
+
+-pathParameters: Long id
+
+
+:sun_with_face: GET: Display Customers Born After a specific Year
+
+-path: "customers/year/{year}"
+
+-pathParameters: Long Year
+
+
+:sun_with_face: POST: Add New Customer
+
+-path: "/customers"
+
+-requestBody: Customer Customer
+
+
+:sun_with_face: DELETE: Delete CustomerBy Id
+
+-path: "/customers/{id}"
+
+-pathParameters: Long id
+
+
+:sun_with_face: TransportationEndpoints:
+
+:sun_with_face: GET: Display All Transportations
+
+-path: "/transportations"
+
+-pathParameters: None
+
+
+:sun_with_face: GET: Display Transportation By Id
+
+-path: "/transportations/{id}"
+
+-pathParameters: Long id
+
+
+:sun_with_face: POST: Add New Transportation
+
+-path: "/transportations"
+
+-requestBody: Transportation transportation
+
+
+:sun_with_face: DELETE: Delete Transportation By Id
+
+-path: "/transportations/{id}"
+
+-pathParameters: Long id
+
+
+:sun_with_face: AccommodationEndpoints:
+
+:sun_with_face: GET: Display All Accommodations
+
+-path: "/accommodations"
+
+-pathParameters: None
+
+:sun_with_face: GET: Display Accommodation By Id
+
+-path: "/accommodations/{id}"
+
+-pathParameters: Long id
+
+
+:sun_with_face:  POST: Add New Accommodation
+-path: "/accommodations"
+
+-requestBody: Accommodation accommodation
+
+
+:sun_with_face: DELETE: Delete Accommodation By Id
+
+-path: "/accommodations/{id}"
+
+-pathParameters: Long id
