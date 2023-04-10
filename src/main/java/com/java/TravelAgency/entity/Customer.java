@@ -25,6 +25,12 @@ public class Customer {
     @Column(name = "id")
     private Long id;
 
+    @Column(name ="username", unique = true)
+    private String username;
+
+    @Column(name ="password")
+    private String password;
+
     @Column(name = "first_name")
     @NotNull(message = Constants.NOT_NULL)
     private String firstName;
@@ -32,6 +38,8 @@ public class Customer {
     @Column(name = "last_name")
     @NotNull(message = Constants.NOT_NULL)
     private String lastName;
+
+    private Integer enabled;
 
     @Column(name = "email")
     @NotNull(message = Constants.NOT_NULL)
@@ -42,8 +50,7 @@ public class Customer {
     private String address;
 
     @Column(name = "birthDate")
-    @NotNull(message = Constants.NOT_NULL)
-    private Date birthDate;
+     private Date birthDate;
 
     @Column(name = "gender")
     private String gender;

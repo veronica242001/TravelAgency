@@ -12,6 +12,8 @@ public class CustomerMapper {
 
         Customer customer = Customer.builder()
                 .id(customerDto.getId())
+                .username(customerDto.getUsername())
+                .password(customerDto.getPassword())
                 .firstName(customerDto.getFirstName())
                 .lastName(customerDto.getLastName())
                 .email(customerDto.getEmail())
@@ -27,6 +29,8 @@ public class CustomerMapper {
 
         CustomerDto customerDto = CustomerDto.builder()
                 .id(customer.getId())
+                .username(customer.getUsername())
+                .password(customer.getPassword())
                 .firstName(customer.getFirstName())
                 .lastName(customer.getLastName())
                 .email(customer.getEmail())
