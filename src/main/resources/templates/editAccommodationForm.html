@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New accommodation Info</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <div th:replace="/header :: header"> </div>
+</head>
+
+<body>
+<form th:object="${accommodationDto}" th:action="@{'/accommodations/updateAccommodation/' + ${accommodationId}}" method="post" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{id}"/>
+    <div class="container" style="border-color: darkcyan; border-style: solid; border-radius: 10px; padding-bottom: 20px">
+        <div class="panel panel-info">
+            <div class="panel-info" style="background-color:darkcyan; border-radius: 10px">
+                <h1 class="panel-title" style="color: aliceblue;">New accommodation Info</h1>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Name:</label>
+                        <label th:if="${#fields.hasErrors('name')}"  th:errors="*{name}" class="text-danger"></label>
+                        <input type="text" class="form-control" th:field="*{name}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>accommodation Type:</label>
+                        <label th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="text-danger"></label>
+                        <input type="text" class="form-control" th:field="*{type}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Address From:</label>
+                        <label th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></label>
+                        <input type="text" class="form-control" th:field="*{address}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Start time:</label>
+                        <label th:if="${#fields.hasErrors('timeStart')}" th:errors="*{timeStart}" class="text-danger"></label>
+                        <input type="date" class="form-control" th:field="*{timeStart}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>End Time:</label>
+                        <label th:if="${#fields.hasErrors('timeEnd')}" th:errors="*{timeEnd}" class="text-danger"></label>
+                        <input type="date" class="form-control" th:field="*{timeEnd}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Price:</label>
+                        <label th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></label>
+                        <input type="text" class="form-control" th:field="*{price}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7 ml-md-auto">
+                        <button type="submit" class="btn btn-primary" style="background-color: darkcyan">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+
+</html>

@@ -42,9 +42,6 @@ public class AgentService {
     }
 
     public AgentDto addAgent(Agent agent) {
-        if (agentRepository.findAgentByName(agent.getFirstName(), agent.getLastName()).isPresent()) { // if the name already exists, throw exception
-            throw new AgentAlreadyExistsException(String.format(Constants.AGENT_EXISTS, agent.getFirstName() + " " + agent.getLastName()));
-        }
         return agentMapper.mapToAgentDto(agentRepository.save(agent));
     }
 

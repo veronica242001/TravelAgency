@@ -1,6 +1,7 @@
 package com.java.TravelAgency.entity;
 
 import com.java.TravelAgency.constants.Constants;
+import com.java.TravelAgency.validator.EmailMatcher;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -20,6 +21,12 @@ public class Agent {
     @Column(name = "id")
     private Long id;
 
+    @Column(name ="username", unique = true)
+    private String username;
+
+    @Column(name ="password")
+    private String password;
+
     @Column(name = "first_name")
     @NotNull(message = Constants.NOT_NULL)
     private String firstName;
@@ -27,6 +34,13 @@ public class Agent {
     @Column(name = "last_name")
     @NotNull(message = Constants.NOT_NULL)
     private String lastName;
+
+    private Integer enabled;
+
+    @Column(name = "email")
+    @NotNull(message = Constants.NOT_NULL)
+    @EmailMatcher()
+    private String email;
 
     @Column(name = "phone")
     @NotNull(message = Constants.NOT_NULL)

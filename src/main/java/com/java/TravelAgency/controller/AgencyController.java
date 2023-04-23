@@ -7,6 +7,7 @@ import com.java.TravelAgency.mapper.AgencyMapper;
 import com.java.TravelAgency.service.AgencyService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,8 +21,9 @@ import java.util.List;
 @RequestMapping("/agencies")
 public class AgencyController {
     private final AgencyService agencyService;
-    private final AgencyMapper agencyMapper;
 
+    private final AgencyMapper agencyMapper;
+    @Autowired
     public AgencyController(AgencyService agencyService, AgencyMapper agencyMapper){
         this.agencyService = agencyService;
         this.agencyMapper = agencyMapper;
@@ -36,10 +38,14 @@ public class AgencyController {
         return modelAndView;
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<AgencyDto> getAgencyById(@PathVariable Long id) {
-//        return ResponseEntity.ok(agencyService.getAgencyById(id));
-//    }
+    @GetMapping("/{agencyId}")
+    public ModelAndView getAgencyById(@PathVariable Long agencyId){
+        ModelAndView modelAndView = new ModelAndView("/agencyDetails");
+        AgencyDto agencyDto = agencyService.getAgencyById(agencyId);
+        modelAndView.addObject("agencyId", agencyId);
+        modelAndView.addObject("agencyDto", agencyDto);
+        return modelAndView;
+    }
 
     @RequestMapping("/new")
     public String newAgency(Model model){
@@ -60,12 +66,28 @@ public class AgencyController {
         return "redirect:/agencies";
     }
 
-//    //update the name for an agency
-//    @PatchMapping("/{id}/{name}")
-//    public ResponseEntity<AgencyDto> updateUsername(@PathVariable Long id, @PathVariable String name) {
-//        return ResponseEntity.ok(agencyService.updateName(id, name));
-//    }
-//
+    @GetMapping("/updateAgency/{agencyId}")
+    public String editAgencyForm(@PathVariable Long agencyId, Model model) {
+        model.addAttribute("agencyDto", agencyService.getAgencyById(agencyId));
+        return "editAgencyForm";
+    }
+    @PostMapping("/updateAgency/{agencyId}")
+    public String editAgency(@PathVariable Long agencyId,
+                           @ModelAttribute("agencyDto") @Valid AgencyDto agencyDto,
+                           BindingResult bindingResult, Model model){
+        log.info("Update the  agency...");
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getAllErrors());
+            return "editAgencyForm";
+        }
+        try{
+            agencyService.updateAgency(agencyId, agencyDto);
+        }catch (Exception exception){
+            bindingResult.reject("globalError", exception.getMessage());
+            return "editAgencyForm";
+        }
+        return "redirect:/agencies";
+    }
     @RequestMapping("/delete/{id}")
     public String deleteAgency(@PathVariable Long id) {
         log.info("Deleting agency...");

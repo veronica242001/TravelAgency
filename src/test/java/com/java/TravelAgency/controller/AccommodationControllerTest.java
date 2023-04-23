@@ -3,6 +3,7 @@ package com.java.TravelAgency.controller;
 import com.java.TravelAgency.constants.Constants;
 import com.java.TravelAgency.dto.AccommodationDto;
 import com.java.TravelAgency.entity.Accommodation;
+import com.java.TravelAgency.mapper.AccommodationMapper;
 import com.java.TravelAgency.service.AccommodationService;
 import com.java.TravelAgency.utils.AccommodationsMocks;
 import org.junit.jupiter.api.Test;
@@ -12,12 +13,15 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class AccommodationControllerTest {
@@ -26,54 +30,58 @@ public class AccommodationControllerTest {
     AccommodationController accommodationController;
     @Mock
     AccommodationService accommodationService;
+    @Mock
+    AccommodationMapper accommodationMapper;
+    @Mock
+    Model model;
+    @Mock
+    BindingResult bindingResult;
     AccommodationDto accommodationDto;
     Accommodation accommodation;
 
 
     @Test
-    public void getAllAccommodationsTest() throws ParseException {
+    public void getAccommodationByIdTest() throws ParseException {
         //GIVEN
         accommodationDto = AccommodationsMocks.mockAccommodationDto();
 
-        List<AccommodationDto> accommodationDtos = new ArrayList<>();
-        accommodationDtos.add(accommodationDto);
-
         //WHEN
-        when(accommodationService.getAll()).thenReturn(accommodationDtos);
+        when(accommodationService.getAccommodationById(1L)).thenReturn(accommodationDto);
 
         //THEN
-        ResponseEntity<List<AccommodationDto>> result = accommodationController.getAllAccommodations();
-        assertEquals(result.getBody(), accommodationDtos);
-        assertEquals(result.getStatusCode().value(), 200);
+        ModelAndView modelAndViewAccommodation = accommodationController.getAccommodationById(1L);
+        assertEquals("/accommodationDetails", modelAndViewAccommodation.getViewName());
+        verify(accommodationService, times(1)).getAccommodationById(1L);
     }
 
 
 
     @Test
-    public void addNewAccommodationTest() throws ParseException {
+    public void saveAccommodationTest() throws ParseException {
         //GIVEN
-        accommodation = AccommodationsMocks.mockAccommodation();
+        accommodationDto = AccommodationsMocks.mockAccommodationDto();
 
         //WHEN
-        when(accommodationService.addAccommodation(accommodation)).thenReturn(accommodationDto);
+        when(accommodationService.addAccommodation(accommodationMapper.mapToAccommodation(accommodationDto))).thenReturn(accommodationDto);
 
         //THEN
-        ResponseEntity<AccommodationDto> result = accommodationController.addNewAccommodation(accommodation);
-        assertEquals(result.getBody(), accommodationDto);
-        assertEquals(result.getStatusCode().value(), 200);
+        String viewName = accommodationController.saveAccommodation(accommodationDto, bindingResult);
+        assertEquals("redirect:/accommodations", viewName);
+        verify(accommodationService, times(1)).addAccommodation(accommodationMapper.mapToAccommodation(accommodationDto));
     }
 
     @Test
-    public void deleteAdoptedAccommodationsTest() throws ParseException {
+    public void deleteaccommodationTest() throws ParseException {
         //GIVEN
-        accommodation = AccommodationsMocks.mockAccommodation();
+        accommodationDto = AccommodationsMocks.mockAccommodationDto();
+
         //WHEN
-        when( accommodationService.deleteObject(accommodation.getId())).thenReturn(Boolean.valueOf(Constants.OBJECT_DELETED));
+        when(accommodationService.deleteObject(1L)).thenReturn(true);
 
         //THEN
-        ResponseEntity<String> result = accommodationController.deleteAccommodation(accommodation.getId());
-        assertEquals(result.getBody(), Constants.OBJECT_DELETED);
-        assertEquals(result.getStatusCode().value(), 200);
+        String viewName = accommodationController.deleteAccommodation(1L);
+        assertEquals("redirect:/accommodations", viewName);
+        verify(accommodationService, times(1)).deleteObject(1L);
     }
 
 

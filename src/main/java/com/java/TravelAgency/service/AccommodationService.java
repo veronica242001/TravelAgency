@@ -25,15 +25,15 @@ public class AccommodationService implements BaseService {
     private AccommodationMapper accommodationMapper;
 
 
-    public List<AccommodationDto> getAll() {
+    public List<AccommodationDto> getAllAccommodations() {
         return accommodationRepository.findAll()
-                .stream().map(a -> accommodationMapper.mapToaccommodationDto(a))
+                .stream().map(a -> accommodationMapper.mapToAccommodationDto(a))
                 .collect(Collectors.toList());
     }
 
     public List<AccommodationDto> getAccommodationsWithLongestPeriod() {
         return accommodationRepository.getAccommodationsWithLongestPeriod()
-                .stream().map(a -> accommodationMapper.mapToaccommodationDto(a))
+                .stream().map(a -> accommodationMapper.mapToAccommodationDto(a))
                 .collect(Collectors.toList());
     }
 
@@ -42,14 +42,21 @@ public class AccommodationService implements BaseService {
         if (accommodation.isEmpty()) {
             throw new AccommodationNotFoundException(String.format(Constants.ACCOMMODATION_NOT_FOUND, id));
         }
-        return accommodationMapper.mapToaccommodationDto(accommodation.get());
+        return accommodationMapper.mapToAccommodationDto(accommodation.get());
     }
 
     public AccommodationDto addAccommodation(Accommodation accommodation) {
         if (accommodationRepository.findByName(accommodation.getName()).isPresent()) { // if the name already exists, throw exception
             throw new AccommodationAlreadyExistsException(String.format(Constants.ACCOMMODATION_EXISTS, accommodation.getName()));
         }
-        return accommodationMapper.mapToaccommodationDto(accommodationRepository.save(accommodation));
+        return accommodationMapper.mapToAccommodationDto(accommodationRepository.save(accommodation));
+    }
+    public AccommodationDto updateAccommodation(Long id, AccommodationDto accommodationDto ) {
+        Optional<Accommodation> accommodation = accommodationRepository.findById(id);
+        if (accommodation.isEmpty()) {
+            throw new AccommodationNotFoundException(String.format(Constants.ACCOMMODATION_NOT_FOUND, id));
+        }
+        return accommodationMapper.mapToAccommodationDto(accommodationRepository.save(accommodationMapper.mapToAccommodation(accommodationDto)));
     }
 
     public boolean deleteObject(Long id) {

@@ -45,13 +45,12 @@ public class AgencyService {
         return agencyMapper.mapToAgencyDto(agencyRepository.save(agency));
     }
 
-    public AgencyDto updateName(Long id, String name) {
+    public AgencyDto updateAgency(Long id, AgencyDto agencyDto) {
         Optional<Agency> agency = agencyRepository.findById(id);
         if (agency.isEmpty()) {
             throw new AgencyNotFoundException(String.format(Constants.AGENCY_NOT_FOUND, id));
         }
-        agency.get().setName(name);
-        return agencyMapper.mapToAgencyDto(agencyRepository.save(agency.get()));
+        return agencyMapper.mapToAgencyDto(agencyRepository.save(agencyMapper.mapToAgency(agencyDto)));
     }
 
     public boolean deleteAgency(Long id) {

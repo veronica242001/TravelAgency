@@ -1,7 +1,10 @@
 package com.java.TravelAgency.service;
 
+import com.java.TravelAgency.dto.AgencyDto;
 import com.java.TravelAgency.dto.TransportationDto;
+import com.java.TravelAgency.entity.Agency;
 import com.java.TravelAgency.entity.Transportation;
+import com.java.TravelAgency.exception.AgencyNotFoundException;
 import com.java.TravelAgency.exception.TransportationAlreadyExistsException;
 import com.java.TravelAgency.exception.TransportationNotFoundException;
 import com.java.TravelAgency.mapper.TransportationMapper;
@@ -65,4 +68,13 @@ public class TransportationService implements BaseService {
         transportation.get().setPrice(newPrice);
         return transportationMapper.mapToTransportationDto(transportationRepository.save(transportation.get()));
     }
+
+    public TransportationDto updateTransportation(Long id, TransportationDto transportationDto ) {
+        Optional<Transportation> transportation = transportationRepository.findById(id);
+        if (transportation.isEmpty()) {
+            throw new TransportationNotFoundException(String.format(Constants.TRANSPORTATION_NOT_FOUND, id));
+        }
+        return transportationMapper.mapToTransportationDto(transportationRepository.save(transportationMapper.mapTotransportation(transportationDto)));
+    }
+
 }

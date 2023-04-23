@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Agencies</title>
@@ -10,13 +10,14 @@
           crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
     <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <div th:replace="/header :: header"> </div>
 </head>
 
 <body>
     <div class="container marginTop centered">
     <h1 style="font-weight: bold; text-align: center"> Agencies </h1>
     <tr th:if="${agencies.size() == 0}" style="margin-top:5rem;">
-        <h2 class="m-5 centered"><span class="badge badge-secondary" style="background-color: darkcyan">No users!</span></h2>
+        <h2 class="m-5 centered"><span class="badge badge-secondary" style="background-color: darkcyan">No agencies!</span></h2>
     </tr>
     <table th:if="${agencies.size() != 0}" id="items" class="table table-hover marginTop"
            style="text-align:center;vertical-align: center;">
@@ -26,8 +27,8 @@
             <th>Name</th>
             <th>Email</th>
             <th>Address</th>
-            <th>Delete</th>
-            <th>Update</th>
+            <th sec:authorize="hasRole('ADMIN') or hasRole('ROLE_AGENT')">Update</th>
+            <th sec:authorize="hasRole('ADMIN')">Delete</th>
         </tr>
         </thead>
 
@@ -42,18 +43,21 @@
 
             <td th:text="${agency.address}"></td>
 
-            <td>
-                <a  class="btn btn-primary mt-1" th:href="@{'/agencies/delete/'+${agency.id}}" style="background-color: darkcyan">Delete</a>
-            </td>
+            <td sec:authorize="hasRole('ADMIN') or hasRole('ROLE_AGENT')">
+                <a  class="btn btn-primary mt-1" th:href="@{'/agencies/updateAgency/'+${agency.id}}" style="background-color: darkcyan">Update</a>
 
-            <td>
-                <a  class="btn btn-primary mt-1" th:href="@{'/agenices/update/'+${agency.id}}" style="background-color: darkcyan">Update</a>
+            </td>
+            <td sec:authorize="hasRole('ADMIN')">
+                    <a  class="btn btn-primary mt-1" th:href="@{'/agencies/delete/'+${agency.id}}" style="background-color: darkcyan">Delete</a>
+
             </td>
         </tr>
         </tbody>
 
     </table>
-        <a class="btn btn-primary mt-1" href="/agencies/new" style="background-color: darkcyan">Add new agencies</a>
+        <div sec:authorize="hasRole('ADMIN')">
+        <a class="btn btn-primary mt-1" href="/agencies/new" style="background-color: darkcyan">Add new agency</a>
+        </div>
 </div>
 </body>
 

@@ -7,12 +7,10 @@ import com.java.TravelAgency.entity.security.User;
 import com.java.TravelAgency.mapper.CustomerMapper;
 import com.java.TravelAgency.repository.security.AuthorityRepository;
 import com.java.TravelAgency.service.CustomerService;
-import com.java.TravelAgency.constants.Constants;
 import com.java.TravelAgency.service.security.UserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,49 +25,37 @@ import java.util.Set;
 
 @Controller
 @Slf4j
-//@RequestMapping("/customers")
+@RequestMapping("/customers")
 public class CustomerController {
 
-     @Autowired
-    private CustomerMapper customerMapper;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private AuthorityRepository authorityRepository;
-    @Autowired
-    private CustomerService customerService;
+    private final  CustomerMapper customerMapper;
+    private final  PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final AuthorityRepository authorityRepository;
+    private final CustomerService customerService;
 
-    @GetMapping("/access_denied")
-    public String accessDenied() {
-        return "accessDenied";
+    @Autowired
+    public CustomerController(CustomerMapper customerMapper, PasswordEncoder passwordEncoder, UserService userService, AuthorityRepository authorityRepository, CustomerService customerService) {
+        this.customerMapper = customerMapper;
+        this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
+        this.authorityRepository = authorityRepository;
+        this.customerService = customerService;
     }
 
-    @GetMapping("/login-error")
-    public String loginError(Model model) {
-        return "loginError";
-    }
-
-    @GetMapping(path = "/login")
-    public String loginForm() {
-        return "login";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @GetMapping(value = "/register")
     public String registerForm(Model model){
         log.info("Register customer...");
         model.addAttribute("customerDto", new CustomerDto());
 
-        return "registerForm";
+        return "customerForm";
     }
 
     @PostMapping("/register")
-    public ModelAndView register(@Valid @RequestBody @ModelAttribute CustomerDto customerDto, BindingResult bindingResult){
-        ModelAndView viewRegister = new ModelAndView("registerForm");
+    public String register(@Valid @RequestBody @ModelAttribute CustomerDto customerDto, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             System.out.println(bindingResult.getAllErrors());
-            return viewRegister;
+            return "customerForm";
         }
 
         Customer customer = customerMapper.mapToCustomer(customerDto);
@@ -79,15 +65,21 @@ public class CustomerController {
 
         Set<Authority> authorities = new HashSet<>();
         authorities.add(authorityRepository.findAuthorityByRole("ROLE_CUSTOMER"));
-        User user = new User(customer.getId(), customer.getUsername(), customer.getPassword(), authorities, true, true, true, true);
+        User user = User.builder()
+                .username(customer.getUsername())
+                .password(customer.getPassword())
+                .authorities(authorities)
+                .enabled(true)
+                .accountNotExpired(true)
+                .accountNotLocked(true)
+                .credentialsNotExpired(true)
+                .build();
         userService.save(user);
 
-        ModelAndView model= new ModelAndView("login");
-
-        return model;
+        return "redirect:/login";
     }
 
-    @GetMapping("/customers")
+    @GetMapping()
     public ModelAndView getCustomers() {
         log.info("Getting customers...");
         ModelAndView modelAndView = new ModelAndView("customers");
@@ -97,7 +89,7 @@ public class CustomerController {
         return modelAndView;
     }
 
-    @RequestMapping("/customers/delete/{id}")
+    @RequestMapping("/delete/{id}")
     @Transactional
     public String deleteByCardNumber(@PathVariable Long id){
         log.info("Deleting customer...");
@@ -106,7 +98,7 @@ public class CustomerController {
         return "redirect:/customers";
     }
 
-    @RequestMapping("/customers/update/{id}")
+    @RequestMapping("/update/{id}")
     public String update(@PathVariable Long id, Model model){
         log.info("Updating customer info...");
         CustomerDto customerDto = customerService.getCustomerById(id);
@@ -115,7 +107,7 @@ public class CustomerController {
         return "updateCustomerForm";
     }
 
-    @PostMapping("/customers/update")
+    @PostMapping("/update")
     @Transactional
     public String updateCustomer(@Valid @ModelAttribute Customer customer,
                                  BindingResult bindingResult){

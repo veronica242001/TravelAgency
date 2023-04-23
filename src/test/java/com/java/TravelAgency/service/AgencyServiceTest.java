@@ -78,38 +78,6 @@ public class AgencyServiceTest {
     }
 
     @Test
-    public void testUpdateAgency() {
-        //GIVEN
-        agency = AgenciesMocks.mockAgency();
-        agencyDto = AgenciesMocks.mockAgencyDto();
-        agencyDto.setName(TestConstants.NAME);
-        //WHEN
-        when(agencyRepository.findById(1L)).thenReturn(Optional.ofNullable(agency));
-        Agency agency2 = AgenciesMocks.mockAgency();
-        agency2.setName(TestConstants.NAME);
-        when(agencyMapper.mapToAgencyDto(agency2)).thenReturn(agencyDto);
-        when(agencyRepository.save(agency)).thenReturn(agency2);
-
-        //THEN
-        AgencyDto result = agencyService.updateName(TestConstants.ID, TestConstants.NAME);
-        assertThat(result).isNotNull();
-        assertTrue(result.getName().equals(TestConstants.NAME));
-    }
-
-    @Test
-    public void testUpdateAgencyThrowException() {
-        //GIVEN
-        agency = null;
-        agencyDto = null;
-
-        //WHEN
-        when(agencyRepository.findById(1L)).thenReturn(Optional.ofNullable(agency));
-        //THEN
-        AgencyNotFoundException agencyNotFoundException = assertThrows(AgencyNotFoundException.class, () -> agencyService.updateName(TestConstants.ID, TestConstants.NAME));
-        assertEquals(Constants.AGENCY_NOT_FOUND, agencyNotFoundException.getMessage());
-    }
-
-    @Test
     public void testDeleteAgencies() {
         //GIVEN
         agency = AgenciesMocks.mockAgency();

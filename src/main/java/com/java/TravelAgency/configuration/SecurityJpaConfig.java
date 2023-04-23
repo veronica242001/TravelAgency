@@ -36,11 +36,17 @@ public class SecurityJpaConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests(auth -> auth
-                        .requestMatchers("/register", "/login", "/login-error", "/", "/agencies").permitAll()
-//                        .requestMatchers("/auction").hasAnyRole()
-//                        .requestMatchers("/products/**").hasRole("ADMIN")
-//                        .requestMatchers("/products/form").hasRole("ADMIN")
-//                                .requestMatchers("/login").permitAll()
+                        .requestMatchers("/register", "/login", "/loginError", "/","/home",
+                        "/agents/register", "/agents", "/customers/register", "/customers","/accommodations",
+                         "/transportations","/offers").permitAll()
+                        .requestMatchers( "/agencies/updateAgency/{agencyId}", "/offers","/offers/{id}",
+                         "/accommodations/new", "/accommodations/{accommodationId}",
+                        "/accommodation/updateAccommodation/{accommodationId}","/accommodations/delete/{id}",
+                        "/transportations/new", "/transportations/{transportationId}",
+                         "/transportations/updateTransportation/{transportationsId}","/transportations/delete/{id}").hasAnyRole("ADMIN", "ROLE_AGENT")
+                        .requestMatchers(  "/agencies/delete/{agencyId}", "agencies/new",
+                        "/agents/delete/{id}","/agents/updateAgent/{agentId}",
+                        "/customers/delete/{id}","/customers/update/{id}" ).hasRole("ADMIN")
 //                        .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsService)
@@ -51,7 +57,7 @@ public class SecurityJpaConfig {
                 .permitAll()
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/access_denied")
+                .accessDeniedPage("/accessDenied")
                 .and()
                 .httpBasic(withDefaults())
                 .build();

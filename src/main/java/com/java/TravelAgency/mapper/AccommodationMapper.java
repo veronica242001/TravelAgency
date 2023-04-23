@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccommodationMapper {
 
-    public Accommodation mapToaccommodation(AccommodationDto accommodationDto) {
+    public Accommodation mapToAccommodation(AccommodationDto accommodationDto) {
 
         Accommodation accommodation = Accommodation.builder()
                 .id(accommodationDto.getId())
@@ -24,7 +24,7 @@ public class AccommodationMapper {
         return accommodation;
     }
 
-    public AccommodationDto mapToaccommodationDto(Accommodation accommodation) {
+    public AccommodationDto mapToAccommodationDto(Accommodation accommodation) {
 
         AccommodationDto accommodationDto = AccommodationDto.builder()
                 .id(accommodation.getId())

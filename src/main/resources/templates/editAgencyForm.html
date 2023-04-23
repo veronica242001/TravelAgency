@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Agency Info</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <div th:replace="/header :: header"> </div>
+</head>
+<body>
+<form th:object="${agencyDto}" th:action="@{'/agencies/updateAgency/' + ${agencyId}}" method="post" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{id}"/>
+    <div class="container" style="border-color: darkcyan; border-style: solid; border-radius: 10px; padding-bottom: 20px">
+        <div class="panel panel-info">
+            <div class="panel-info" style="background-color:darkcyan; border-radius: 10px">
+                <h1 class="panel-title" style="color: aliceblue;">Edit Agency Info</h1>
+            </div>
+            <div th:if="${#fields.hasErrors('global')}">
+                <h3>Errors:</h3>
+                <p th:each="exception : ${#fields.errors('global')}" th:text="${exception}" class="text-danger"></p>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Agency name:</label>
+                        <label th:if="${#fields.hasErrors('name')}"  th:errors="*{name}" class="text-danger"></label>
+                        <input type="text" class="form-control" th:field="*{name}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Agency Address:</label>
+                        <label th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></label>
+                        <input type="text" class="form-control" th:field="*{address}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Agency Email:</label>
+                        <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></label>
+                        <input type="text" class="form-control" th:field="*{email}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7 ml-md-auto">
+                        <button type="submit" class="btn btn-primary" style="background-color: darkcyan">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+
+</html>

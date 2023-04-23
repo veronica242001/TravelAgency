@@ -1,8 +1,8 @@
 package com.java.TravelAgency.controller;
 
-import com.java.TravelAgency.constants.Constants;
 import com.java.TravelAgency.dto.TransportationDto;
 import com.java.TravelAgency.entity.Transportation;
+import com.java.TravelAgency.mapper.TransportationMapper;
 import com.java.TravelAgency.service.TransportationService;
 import com.java.TravelAgency.utils.TransportationsMocks;
 import org.junit.jupiter.api.Test;
@@ -10,14 +10,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TransportationControllerTest {
@@ -26,57 +26,61 @@ public class TransportationControllerTest {
     TransportationController transportationController;
     @Mock
     TransportationService transportationService;
+    @Mock
+    TransportationMapper transportationMapper;
+    @Mock
+    Model model;
+    @Mock
+    BindingResult bindingResult;
     TransportationDto transportationDto;
     Transportation transportation;
 
 
     @Test
-    public void getAllTransportationsTest() throws ParseException {
+    public void getTransportationByIdTest() throws ParseException {
         //GIVEN
         transportationDto = TransportationsMocks.mockTransportationDto();
 
-        List<TransportationDto> transportationDtos = new ArrayList<>();
-        transportationDtos.add(transportationDto);
-
         //WHEN
-        when(transportationService.getAllTransportations()).thenReturn(transportationDtos);
+        when(transportationService.getTransportationById(1L)).thenReturn(transportationDto);
 
         //THEN
-        ResponseEntity<List<TransportationDto>> result = transportationController.getAllTransportations();
-        assertEquals(result.getBody(), transportationDtos);
-        assertEquals(result.getStatusCode().value(), 200);
+        ModelAndView modelAndViewTransportation = transportationController.getTransportationById(1L);
+        assertEquals("/transportationDetails", modelAndViewTransportation.getViewName());
+        verify(transportationService, times(1)).getTransportationById(1L);
     }
 
 
 
     @Test
-    public void addNewTransportationTest() throws ParseException {
+    public void saveTransportationTest() throws ParseException {
         //GIVEN
-        transportation = TransportationsMocks.mockTransportation();
+        transportationDto = TransportationsMocks.mockTransportationDto();
 
         //WHEN
-        when(transportationService.addTransportation(transportation)).thenReturn(transportationDto);
+        when(transportationService.addTransportation(transportationMapper.mapTotransportation(transportationDto))).thenReturn(transportationDto);
 
         //THEN
-        ResponseEntity<TransportationDto> result = transportationController.addNewTransportation(transportation);
-        assertEquals(result.getBody(), transportationDto);
-        assertEquals(result.getStatusCode().value(), 200);
+        String viewName = transportationController.saveTransportation(transportationDto, bindingResult);
+        assertEquals("redirect:/transportations", viewName);
+        verify(transportationService, times(1)).addTransportation(transportationMapper.mapTotransportation(transportationDto));
     }
 
     @Test
-    public void deleteAdoptedTransportationsTest() throws ParseException {
+    public void deleteTransportationTest() throws ParseException {
         //GIVEN
-        transportation = TransportationsMocks.mockTransportation();
+        transportationDto = TransportationsMocks.mockTransportationDto();
+
         //WHEN
-        when( transportationService.deleteObject(transportation.getId())).thenReturn(Boolean.valueOf(Constants.OBJECT_DELETED));
+        when(transportationService.deleteObject(1L)).thenReturn(true);
 
         //THEN
-        ResponseEntity<String> result = transportationController.deleteTransportation(transportation.getId());
-        assertEquals(result.getBody(), Constants.OBJECT_DELETED);
-        assertEquals(result.getStatusCode().value(), 200);
+        String viewName = transportationController.deleteTransportation(1L);
+        assertEquals("redirect:/transportations", viewName);
+        verify(transportationService, times(1)).deleteObject(1L);
     }
-
-
 
 }
+
+
 

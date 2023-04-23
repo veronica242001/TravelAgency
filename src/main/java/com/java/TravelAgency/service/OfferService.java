@@ -1,13 +1,15 @@
 package com.java.TravelAgency.service;
 
 
+import com.java.TravelAgency.constants.Constants;
 import com.java.TravelAgency.dto.OfferDto;
 import com.java.TravelAgency.entity.Offer;
 import com.java.TravelAgency.exception.OfferNotFoundException;
 import com.java.TravelAgency.mapper.OfferMapper;
 import com.java.TravelAgency.repository.OfferRepository;
-import com.java.TravelAgency.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,5 +59,10 @@ public class OfferService {
         }
         offerRepository.delete(offer.get());
         return true;
+    }
+
+    public Page<OfferDto> findPaginatedOffers(Pageable pageable) {
+        Page<OfferDto> offerPage = offerRepository.findAll(pageable).map(offer -> offerMapper.mapToOfferDto(offer));;
+        return offerPage;
     }
 }

@@ -26,8 +26,9 @@ public class Constants {
 
     public static final String EMAIL_MATCH ="Email address is not valid";
 
-    public static final String NOT_NULL ="This field should't be null";
+    public static final String NOT_NULL ="This field should not be empty";
 
     public static final String INVALID_FIELDS = "Invalid fields. You have null fields or an invalid email address";
+    public static final String NUMBER_MATCH = "The price should be a number";
 
 }

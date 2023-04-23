@@ -51,10 +51,10 @@ public class AccommodationServiceTest {
 
         //WHEN
         when(accommodationRepository.findAll()).thenReturn(agencies);
-        when(accommodationMapper.mapToaccommodationDto(accommodation)).thenReturn(accommodationDto);
+        when(accommodationMapper.mapToAccommodationDto(accommodation)).thenReturn(accommodationDto);
 
         //THEN
-        List<AccommodationDto> result = accommodationService.getAll();
+        List<AccommodationDto> result = accommodationService.getAllAccommodations();
         assertEquals(result, agenciesDto);
     }
 
@@ -67,7 +67,7 @@ public class AccommodationServiceTest {
 
         //WHEN
         when(accommodationRepository.save(accommodation)).thenReturn(accommodation);
-        when(accommodationMapper.mapToaccommodationDto(accommodation)).thenReturn(accommodationDto);
+        when(accommodationMapper.mapToAccommodationDto(accommodation)).thenReturn(accommodationDto);
 
         AccommodationDto result = accommodationService.addAccommodation(accommodation);
 
@@ -86,7 +86,7 @@ public class AccommodationServiceTest {
 
         //WHEN
         when(accommodationRepository.findById(1L)).thenReturn(Optional.ofNullable(accommodation));
-        when(accommodationMapper.mapToaccommodationDto(accommodation)).thenReturn(accommodationDto);
+        when(accommodationMapper.mapToAccommodationDto(accommodation)).thenReturn(accommodationDto);
 
         //THEN
         AccommodationDto result = accommodationService.getAccommodationById(1L);

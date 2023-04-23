@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>transportations</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <div th:replace="/header :: header"> </div>
+</head>
+
+<body>
+<div class="container marginTop centered">
+    <h1 style="font-weight: bold; text-align: center"> Available transportations </h1>
+    <tr th:if="${transportations.size() == 0}" style="margin-top:5rem;">
+        <h2 class="m-5 centered"><span class="badge badge-secondary" style="background-color: darkcyan">No transportations!</span></h2>
+    </tr>
+    <table th:if="${transportations.size() != 0}" id="items" class="table table-hover marginTop"
+           style="text-align:center;vertical-align: center;">
+        <thead class="thead" style="background-color: darkcyan">
+        <tr>
+<!--            <th>transportation Id</th>-->
+            <th>Name</th>
+            <th>Type</th>
+            <th>AddressFrom</th>
+            <th>AddressTo</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Price</th>
+            <th sec:authorize="hasRole('ADMIN') or hasRole('ROLE_AGENT')">Delete</th>
+            <th sec:authorize="hasRole('ADMIN') or hasRole('ROLE_AGENT')">Update</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="transportation, stat : ${transportations}" th:id="${transportation.id}" class="table-light">
+
+<!--            <td th:text="${transportation.id}"></td>-->
+
+            <td th:text="${transportation.name}"></td>
+
+            <td th:text="${transportation.type}"></td>
+
+            <td th:text="${transportation.addressFrom}"></td>
+
+            <td th:text="${transportation.addressTo}"></td>
+
+            <td th:text="${transportation.timeStart}"></td>
+
+            <td th:text="${transportation.timeEnd}"></td>
+
+            <td th:text="${transportation.price}"></td>
+
+            <td sec:authorize="hasRole('ADMIN') or hasRole('ROLE_AGENT')">
+                <div>
+                    <a  class="btn btn-primary mt-1" th:href="@{'/transportations/delete/'+${transportation.id}}" style="background-color: darkcyan">Delete</a>
+                </div>
+            </td>
+
+            <td sec:authorize="hasRole('ADMIN') or hasRole('ROLE_AGENT')">
+                <div>
+                    <a  class="btn btn-primary mt-1" th:href="@{'/transportations/updateTransportation/'+${transportation.id}}" style="background-color: darkcyan">Update</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+    <div sec:authorize="hasRole('ADMIN') or hasRole('ROLE_AGENT')">
+        <a class="btn btn-primary mt-1" href="/transportations/new" style="background-color: darkcyan">Add new transportation</a>
+    </div>
+</div>
+</body>
+
+</html>
