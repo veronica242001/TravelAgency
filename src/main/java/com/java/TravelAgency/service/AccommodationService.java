@@ -31,12 +31,6 @@ public class AccommodationService implements BaseService {
                 .collect(Collectors.toList());
     }
 
-    public List<AccommodationDto> getAccommodationsWithLongestPeriod() {
-        return accommodationRepository.getAccommodationsWithLongestPeriod()
-                .stream().map(a -> accommodationMapper.mapToAccommodationDto(a))
-                .collect(Collectors.toList());
-    }
-
     public AccommodationDto getAccommodationById(Long id) {
         Optional<Accommodation> accommodation = accommodationRepository.findById(id);
         if (accommodation.isEmpty()) {

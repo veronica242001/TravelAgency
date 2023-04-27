@@ -53,7 +53,7 @@ public class OfferController {
         return modelAndView;
     }
 
-    @RequestMapping
+    @RequestMapping("/all")
     public String getOffersPage(Model model,
                                @RequestParam("page") Optional<Integer> page,
                                @RequestParam("size") Optional<Integer> size) {

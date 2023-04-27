@@ -31,11 +31,11 @@ public class SecurityConfigH2{
     public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withUsername("vero")
-                .password(passwordEncoder.encode("12345"))
+                .password(passwordEncoder.encode("1234"))
                 .roles("ROLE_CUSTOMER")
                 .build());
         manager.createUser(User.withUsername("admin")
-                .password(passwordEncoder.encode("12345"))
+                .password(passwordEncoder.encode("1234"))
                 .roles("ROLE_AGENT", "ADMIN")
                 .build());
         return manager;
@@ -56,10 +56,10 @@ public class SecurityConfigH2{
                                 "/accommodations/new", "/accommodations/{accommodationId}",
                                 "/accommodation/updateAccommodation/{accommodationId}","/accommodations/delete/{id}",
                                 "/transportations/new", "/transportations/{transportationId}",
-                                "/transportations/updateTransportation/{transportationsId}","/transportations/delete/{id}").hasAnyRole("ADMIN", "ROLE_AGENT")
+                                "/transportations/updateTransportation/{transportationsId}","/transportations/delete/{id}").permitAll()
                         .requestMatchers(  "/agencies/delete/{agencyId}", "agencies/new",
                                 "/agents/delete/{id}","/agents/updateAgent/{agentId}",
-                                "/customers/delete/{id}","/customers/update/{id}" ).hasRole("ADMIN")
+                                "/customers/delete/{id}","/customers/update/{id}" ).permitAll()
                       //  .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions().sameOrigin())

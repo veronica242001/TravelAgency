@@ -15,7 +15,6 @@ public class IndexController {
 
     @GetMapping("/")
     public String returnHomePage() {
-
         log.info("Getting homepage...");
         return "index";
     }
@@ -35,9 +34,9 @@ public class IndexController {
     }
 
     @RequestMapping({"","/home"})
-    public ModelAndView getHome(){
-
-        return new ModelAndView("index");
+    public String getHome(){
+        log.info("Getting homepage...");
+        return "index";
     }
     @GetMapping("/register")
     public String showRegistrationForm() {

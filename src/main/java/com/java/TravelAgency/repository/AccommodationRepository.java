@@ -14,6 +14,4 @@ public interface AccommodationRepository extends JpaRepository<Accommodation, Lo
 
     Optional<Accommodation> findByName(String name);
 
-    @Query("SELECT a1 FROM Accommodation a1  WHERE a1.timeEnd - a1.timeStart= ( SELECT max(a2.timeEnd - a2.timeStart) FROM Accommodation a2)")
-    List<Accommodation> getAccommodationsWithLongestPeriod();
 }

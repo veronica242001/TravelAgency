@@ -38,12 +38,12 @@ public class SecurityJpaConfig {
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/register", "/login", "/loginError", "/","/home","",
                         "/agents/register", "/agents", "/customers/register", "/customers","/accommodations",
-                         "/transportations","/offers","/agencies").permitAll()
+                         "/transportations","/offers/all","/agencies").permitAll()
                         .requestMatchers( "/agencies/updateAgency/{agencyId}", "/offers","/offers/{id}",
                          "/accommodations/new", "/accommodations/{accommodationId}",
                         "/accommodation/updateAccommodation/{accommodationId}","/accommodations/delete/{id}",
                         "/transportations/new", "/transportations/{transportationId}",
-                         "/transportations/updateTransportation/{transportationsId}","/transportations/delete/{id}").hasAnyRole("ADMIN", "ROLE_AGENT")
+                         "/transportations/updateTransportation/{transportationsId}","/transportations/delete/{id}").hasAnyRole("ADMIN", "ROLE_AGENT","ROLE_CUSTOMER")
                         .requestMatchers(  "/agencies/delete/{agencyId}", "agencies/new",
                         "/agents/delete/{id}","/agents/updateAgent/{agentId}",
                         "/customers/delete/{id}","/customers/update/{id}" ).hasRole("ADMIN")
@@ -54,6 +54,7 @@ public class SecurityJpaConfig {
                 .loginPage("/login")
                 .loginProcessingUrl("/authUser")
                 .failureUrl("/loginError")
+                .successForwardUrl("/home")
                 .permitAll()
                 .and()
                 .exceptionHandling()
