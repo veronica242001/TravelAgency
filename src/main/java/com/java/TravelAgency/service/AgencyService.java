@@ -8,6 +8,7 @@ import com.java.TravelAgency.exception.AgencyNotFoundException;
 import com.java.TravelAgency.mapper.AgencyMapper;
 import com.java.TravelAgency.repository.AgencyRepository;
 import com.java.TravelAgency.constants.Constants;
+import com.java.TravelAgency.repository.security.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,9 @@ import java.util.stream.Collectors;
 public class AgencyService {
     @Autowired
     private AgencyRepository agencyRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private AgencyMapper agencyMapper;

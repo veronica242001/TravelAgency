@@ -11,13 +11,14 @@
   <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <div th:replace="/header :: header"> </div>
 </head>
-<body>
-<div class="container marginTop centered" style="background-color:whitesmoke; border-color: darkcyan; border-style: solid; border-radius: 10px; padding-bottom: 20px">
+<body style="background-color: whitesmoke">
+<div class="container marginTop centered" style="background-color:whitesmoke; border-color: darkcyan; border-style: solid; border-radius: 10px; padding-bottom: 20px; padding-top:10px;">
 
   <div class="auth-wrapper">
     <div class="auth-inner">
-      <h3>Create a agent account</h3>
-      <form enctype="multipart/form-data" th:action="@{/agents/register}" th:object="${agentDto}" method="post" class="needs-validation" novalidate>
+      <h1 class="text-center" style="color: darkcyan;">Add a new agent</h1>
+      <h3></h3>
+      <form enctype="multipart/form-data" th:action="@{/agents/register}" th:object="${agentDto}" method="post" class="needs-validation" novalidate style="color: darkcyan;">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
         <div class="form-group col-3">
@@ -81,7 +82,7 @@
                  th:field="*{salary}"
                  class="form-control"
                  maxlength="100"
-                 placeholder="Enter address"/>
+                 placeholder="Enter salary"/>
         </div>
 
         <div class="form-group col-3">

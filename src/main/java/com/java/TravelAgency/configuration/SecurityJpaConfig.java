@@ -36,9 +36,9 @@ public class SecurityJpaConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests(auth -> auth
-                        .requestMatchers("/register", "/login", "/loginError", "/","/home",
+                        .requestMatchers("/register", "/login", "/loginError", "/","/home","",
                         "/agents/register", "/agents", "/customers/register", "/customers","/accommodations",
-                         "/transportations","/offers").permitAll()
+                         "/transportations","/offers","/agencies").permitAll()
                         .requestMatchers( "/agencies/updateAgency/{agencyId}", "/offers","/offers/{id}",
                          "/accommodations/new", "/accommodations/{accommodationId}",
                         "/accommodation/updateAccommodation/{accommodationId}","/accommodations/delete/{id}",

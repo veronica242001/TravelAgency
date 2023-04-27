@@ -1,7 +1,11 @@
 //package com.java.TravelAgency.repository;
 //
+//import com.java.TravelAgency.entity.Accommodation;
 //import com.java.TravelAgency.entity.Agency;
+//import com.java.TravelAgency.entity.Offer;
+//import com.java.TravelAgency.utils.AccommodationsMocks;
 //import com.java.TravelAgency.utils.AgenciesMocks;
+//import com.java.TravelAgency.utils.OffersMocks;
 //import lombok.extern.slf4j.Slf4j;
 //import org.junit.jupiter.api.MethodOrderer;
 //import org.junit.jupiter.api.Order;
@@ -10,10 +14,12 @@
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 //import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+//import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 //import org.springframework.test.annotation.DirtiesContext;
 //import org.springframework.test.annotation.Rollback;
 //import org.springframework.test.context.ActiveProfiles;
 //
+//import java.text.ParseException;
 //import java.util.List;
 //
 //import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,34 +27,30 @@
 //
 //@DataJpaTest
 //@ActiveProfiles("h2")
+//@EnableJpaRepositories
 //@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 //@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 //@Rollback(false)
 //@Slf4j
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
-//public class AgencyRepositoryTest {
-//
+////@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
+//public class AccommodationRepositoryTest {
 //    @Autowired
-//    private AgencyRepository agencyRepository;
+//    private OfferRepository offerRepository;
 //
 //
 //    @Test
 //    @Order(1)
-//    public void addAgencyTest() {
-//        Agency agency = AgenciesMocks.mockAgency();
-//        agencyRepository.save(agency);
+////    public void addAgencyTest() throws ParseException {
+//        Offer offer = OffersMocks.mockOffer();
+//        offerRepository.save(offer);
 //    }
 //
 //    @Test
 //    @Order(2)
 //    public void findAllByAgencyIdTest() {
-//        List<Agency> agencies = agencyRepository.findAll();
-//        log.info("Agency list : " + agencies);
-//        assertFalse(agencies.isEmpty());
-//        assertEquals(agencies.size(), 1);
+//        List<Offer> offer = offerRepository.findAll();
+//        log.info("offer list : " + offer);
+//        assertFalse(offer.isEmpty());
+//        assertEquals(offer.size(), 1);
 //    }
-//
-//
-//
-//
 //}

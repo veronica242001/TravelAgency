@@ -11,10 +11,10 @@
   <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <div th:replace="/header :: header"> </div>
 </head>
-<body>
+<body style="background-color: whitesmoke">
 <form th:object="${transportationDto}" th:action="@{'/transportations/updateTransportation/' + ${transportationId}}" method="post" enctype="multipart/form-data">
   <input type="hidden" th:field="*{id}"/>
-  <div class="container" style="border-color: darkcyan; border-style: solid; border-radius: 10px; padding-bottom: 20px">
+  <div class="container" style="border-color: darkcyan; border-style: solid; border-radius: 10px; padding-bottom: 20px; padding-top:5px;">
     <div class="panel panel-info">
       <div class="panel-info" style="background-color:darkcyan; border-radius: 10px">
         <h1 class="panel-title" style="color: aliceblue;">Edit Transportation Info</h1>

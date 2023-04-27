@@ -11,15 +11,15 @@
     <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <div th:replace="/header :: header"> </div>
 </head>
-<body>
+<body style="background-color: whitesmoke">
 <div class="container marginTop centered">
-    <h1 style="font-weight: bold; text-align: center"> Customers </h1>
+    <h1 style="font-weight: bold; text-align: center;color: darkcyan;"> Customers </h1>
     <tr th:if="${customers.size() == 0}" style="margin-top:5rem;">
         <h2 class="m-5 centered"><span class="badge badge-secondary" style="background-color: darkcyan">No customers!</span></h2>
     </tr>
     <table th:if="${customers.size() != 0}" id="items" class="table table-hover marginTop"
-           style="text-align:center;vertical-align: center;">
-        <thead class="thead" style="background-color: darkcyan">
+           style="text-align:center;vertical-align: center; border-color: darkcyan; border-style: solid; border-radius: 10px;">
+        <thead class="thead" style="background-color: darkcyan;color:white;">
         <tr>
             <th sec:authorize="hasRole('ADMIN')">Customer Id</th>
             <th>Username</th>
@@ -29,7 +29,7 @@
             <th>Birth Date</th>
             <th>Gender</th>
             <th sec:authorize="hasRole('ADMIN')">Delete</th>
-            <th sec:authorize="hasRole('ADMIN')">Update</th>
+<!--            <th sec:authorize="hasRole('ADMIN')">Update</th>-->
         </tr>
         </thead>
 
@@ -54,9 +54,9 @@
                 <a  class="btn btn-primary mt-1" th:href="@{'/customers/delete/'+${account.id}}" style="background-color: darkcyan">Delete</a>
             </td>
 
-            <td>
-                <a  class="btn btn-primary mt-1" th:href="@{'/customers/update/'+${account.id}}" style="background-color: darkcyan">Update</a>
-            </td>
+<!--            <td>-->
+<!--                <a  class="btn btn-primary mt-1" th:href="@{'/customers/update/'+${account.id}}" style="background-color: darkcyan">Update</a>-->
+<!--            </td>-->
         </tr>
         </tbody>
 
@@ -64,4 +64,7 @@
     <a class="btn btn-success marginTop" href="/customers/register" style="background-color: darkcyan">Add a new customer</a>
 </div>
 </body>
+<footer class="fixed-bottom" style="background-color: darkcyan; width: 100%; height: 150px;">
+    <div th:replace="/footer :: footer"></div>
+</footer>
 </html>

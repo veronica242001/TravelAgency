@@ -125,6 +125,7 @@ public class AgentController {
         }
         try{
         agentDto.setPassword(passwordEncoder.encode(agentDto.getPassword()));
+        agentDto.setUsername(agentService.getAgentById(agentId).getUsername());
         agentService.addAgent(agentMapper.mapToAgent(agentDto));
 
         User user = userService.findByUsername(agentDto.getUsername());

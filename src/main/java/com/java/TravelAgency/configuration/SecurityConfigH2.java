@@ -32,11 +32,11 @@ public class SecurityConfigH2{
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withUsername("vero")
                 .password(passwordEncoder.encode("12345"))
-                .roles("CUSTOMER")
+                .roles("ROLE_CUSTOMER")
                 .build());
         manager.createUser(User.withUsername("admin")
                 .password(passwordEncoder.encode("12345"))
-                .roles("USER", "ADMIN")
+                .roles("ROLE_AGENT", "ADMIN")
                 .build());
         return manager;
     }
@@ -49,8 +49,18 @@ public class SecurityConfigH2{
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/products/**").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/register", "/login", "/loginError", "/","/home","",
+                                "/agents/register", "/agents", "/customers/register", "/customers","/accommodations",
+                                "/transportations","/offers","/agencies").permitAll()
+                        .requestMatchers( "/agencies/updateAgency/{agencyId}", "/offers","/offers/{id}",
+                                "/accommodations/new", "/accommodations/{accommodationId}",
+                                "/accommodation/updateAccommodation/{accommodationId}","/accommodations/delete/{id}",
+                                "/transportations/new", "/transportations/{transportationId}",
+                                "/transportations/updateTransportation/{transportationsId}","/transportations/delete/{id}").hasAnyRole("ADMIN", "ROLE_AGENT")
+                        .requestMatchers(  "/agencies/delete/{agencyId}", "agencies/new",
+                                "/agents/delete/{id}","/agents/updateAgent/{agentId}",
+                                "/customers/delete/{id}","/customers/update/{id}" ).hasRole("ADMIN")
+                      //  .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions().sameOrigin())
                 .httpBasic(withDefaults())

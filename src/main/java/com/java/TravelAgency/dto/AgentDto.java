@@ -43,7 +43,6 @@ public class AgentDto {
     @NotNull(message = Constants.NOT_NULL)
     private Double salary;
 
-    @NotNull(message = Constants.NOT_NULL)
     private AgencyDto agencyDto;
 
 }

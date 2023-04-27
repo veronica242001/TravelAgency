@@ -28,6 +28,7 @@ public class OfferDto {
 
     private List<TransportationDto> transportationsDto;
 
+
     private List<AccommodationDto> accommodationsDto;
 
     @NotNull(message = Constants.NOT_NULL)

@@ -14,13 +14,13 @@
 </head>
 <body >
 <div class="container marginTop centered">
-    <h1 style="font-weight: bold; text-align: center"> Offers </h1>
+    <h1 style="font-weight: bold; text-align: center;color: darkcyan"> Offers </h1>
     <tr th:if="${offerPage.content.size() == 0}" style="margin-top:5rem;">
         <h2 class="m-5 centered"><span class="badge badge-secondary" style="background-color: darkcyan">No offers!</span></h2>
     </tr>
     <table th:if="${offerPage.content.size() != 0}" id="items" class="table table-hover marginTop"
-           style="text-align:center;vertical-align: center;">
-        <thead class="thead" style="background-color: darkcyan">
+           style="text-align:center;vertical-align: center; border-color: darkcyan; border-style: solid; border-radius: 10px;">
+        <thead class="thead" style="background-color: darkcyan;color:white;">
         <tr>
             <th sec:authorize="hasRole('ADMIN')">Offer Id</th>
             <th>BookDate</th>
@@ -103,4 +103,7 @@
     </nav>
 </div>
 </body>
+<footer class="fixed-bottom" style="background-color: darkcyan; width: 100%; height: 150px;">
+    <div th:replace="/footer :: footer"></div>
+</footer>
 </html>

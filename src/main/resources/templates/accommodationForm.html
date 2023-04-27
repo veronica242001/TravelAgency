@@ -12,10 +12,10 @@
     <div th:replace="/header :: header"> </div>
 </head>
 
-<body>
+<body style="background-color: whitesmoke">
 <form th:object="${accommodationDto}" th:action="@{/accommodations}" method="post" enctype="multipart/form-data">
     <input type="hidden" th:field="*{id}"/>
-    <div class="container" style="border-color: darkcyan; border-style: solid; border-radius: 10px; padding-bottom: 20px">
+    <div class="container" style="border-color: darkcyan; border-style: solid; border-radius: 10px; padding-bottom: 20px; padding-top:5px;">
         <div class="panel panel-info">
             <div class="panel-info" style="background-color:darkcyan; border-radius: 10px">
                 <h1 class="panel-title" style="color: aliceblue;">New accommodation Info</h1>
@@ -30,14 +30,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3 form-group">
-                        <label>accommodation Type:</label>
+                        <label>Accommodation Type:</label>
                         <label th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="text-danger"></label>
                         <input type="text" class="form-control" th:field="*{type}"/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3 form-group">
-                        <label>Address From:</label>
+                        <label>Address:</label>
                         <label th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></label>
                         <input type="text" class="form-control" th:field="*{address}"/>
                     </div>
